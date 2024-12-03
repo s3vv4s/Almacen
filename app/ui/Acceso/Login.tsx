@@ -1,9 +1,12 @@
-import { ActivityIndicator, Text, TextInput, View, StyleSheet, Button,Image, ImageBackground } from "react-native";
+import { ActivityIndicator, Text, TextInput, View, StyleSheet, Button,Image, ImageBackground, Pressable } from "react-native";
 import { userAuthViewmodel } from "./AuthViewModel";
-import { useState } from "react";
+import React, { useState } from "react";
 import { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { FormatDate } from "@/utils/FormatDate";
 import {BlurView} from "expo-blur"
+import ButtonPrimary from "../components/Buttons";
+import { Colors } from "@/constants/Colors";
+import InputPrimary from "../components/Inputs";
 
 const Login = () => {
   const { error, loading, loginUser } = userAuthViewmodel();
@@ -11,7 +14,6 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   //Estado para picket fecha de trabajo
   const [dateWork, setDateWork] = useState<Date>(new Date());
-
 
   const verificar = () => {
     loginUser(username, password, FormatDate(dateWork));
@@ -27,24 +29,31 @@ const Login = () => {
        setDateWork(fecha);
       }
     });
-
   }
   return (
     <View style={styles.container}>
       <BlurView intensity={90}  style={styles.containerImg}>
-      <ImageBackground source={require("@/assets/images/dif_logo.png")} style={{
+      <Image source={require("@/assets/images/dif_logo.png")} style={{
           position: "absolute",
           width: 300, height: 300,
-
-
+          resizeMode: "contain",
         }}/>
          </BlurView>
-      <TextInput style={styles.input} placeholder="Username" value={username} onChangeText={setUserName} />
-      <TextInput style={styles.input} placeholder="Password" value={password} onChangeText={setPassword} />
+
+      <InputPrimary
+      placeholder="Usuario"
+      value={username}
+      onChangeText={setUserName} />
+
+      <InputPrimary
+      placeholder="Contraseña"
+      value={password}
+      onChangeText={setPassword} />
+
+
       {loading && <ActivityIndicator size="large" color="#6c162c" />}
       {error && <Text style={styles.errorText}>{error}</Text>}
-      <Button title="Login" onPress={verificar} disabled={loading} />
-      <Button  onPress={setDate} title="Fecha de Trabajo"/>
+      <ButtonPrimary  onClick={verificar} text="Entrar" estilos={{borderRadius:10}}/>
     </View>);
 };
 
@@ -62,8 +71,12 @@ containerImg:{
     padding: 16
   },
   input: {
-    height: 40, borderColor: 'gray',
-    borderWidth: 1, marginBottom: 12, padding: 8
+    height: 40,
+    borderTopWidth:0,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderWidth: 2, marginBottom: 12, padding: 8,
+
   },
   errorText: {
     color: 'red', marginBottom: 12
