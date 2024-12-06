@@ -35,7 +35,8 @@ function ContextProvider({children}: {children: ReactNode}) {
 
 export function  useContextState(): ContextProp {
 
-  const context = useContext(ContextState) as ContextProp ;
+  const context = useContext(ContextState);
+
 
   if (context === undefined) {
     throw new Error("useContextState must be used within a ContextProvider");

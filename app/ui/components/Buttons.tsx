@@ -7,7 +7,6 @@ type ButtonProps = {
   onClick: () => void;
   text: string;
   estilos?: StyleProp<ViewStyle>;
-
 };
 const ButtonPrimary = ({onClick,text,estilos}: ButtonProps) => {
 
@@ -23,7 +22,6 @@ const ButtonPrimary = ({onClick,text,estilos}: ButtonProps) => {
 
 const style = StyleSheet.create({
   primary: {
-
     padding: 16,
     backgroundColor: Colors.main.primary,
     borderRadius: 10,

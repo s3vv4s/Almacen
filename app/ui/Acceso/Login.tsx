@@ -1,44 +1,47 @@
+
 import { ActivityIndicator, Text, TextInput, View, StyleSheet, Button,Image, ImageBackground, Pressable } from "react-native";
 import { userAuthViewmodel } from "./AuthViewModel";
 import React, { useState } from "react";
-import { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { FormatDate } from "@/utils/FormatDate";
 import {BlurView} from "expo-blur"
 import ButtonPrimary from "../components/Buttons";
 import { Colors } from "@/constants/Colors";
 import InputPrimary from "../components/Inputs";
+import PicketCalendar from "../components/PIcketCalendar";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import RootScreens from "@/constants/RootScreens";
+import AuthCamara from "./AuthCamara";
 
-const Login = () => {
-  const { error, loading, loginUser } = userAuthViewmodel();
-  const [username, setUserName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+type Props = NativeStackScreenProps<RootScreens, "Login">;
+const Login = ({navigation,route}: Props) => {
+  const {
+    error,
+    loading,
+    loginUser,
+    setUserName,
+    username,
+    password,
+    setPassword,
+    showCamara,
+    setShowCamara,
+    setLoginContext
+  } = userAuthViewmodel();
+
+
   //Estado para picket fecha de trabajo
-  const [dateWork, setDateWork] = useState<Date>(new Date());
-
+  const {dateString,setDate} = PicketCalendar();
   const verificar = () => {
-    loginUser(username, password, FormatDate(dateWork));
+    loginUser(dateString);
   };
 
-  const setDate = () =>{
-    DateTimePickerAndroid.open({
-      mode:"date",
-      value:dateWork,
-      onChange:(event:DateTimePickerEvent, fecha : Date|undefined)=>{
-       console.log(FormatDate(fecha));
-       //@ts-ignore
-       setDateWork(fecha);
-      }
-    });
-  }
-  return (
+ return (
     <View style={styles.container}>
-      <BlurView intensity={90}  style={styles.containerImg}>
+      <BlurView intensity={.4}  style={styles.containerImg}>
       <Image source={require("@/assets/images/dif_logo.png")} style={{
           position: "absolute",
           width: 300, height: 300,
           resizeMode: "contain",
         }}/>
-         </BlurView>
+      </BlurView>
 
       <InputPrimary
       placeholder="Usuario"
@@ -51,16 +54,17 @@ const Login = () => {
       onChangeText={setPassword} />
 
 
-      {loading && <ActivityIndicator size="large" color="#6c162c" />}
+      {loading && <ActivityIndicator size="large" color={Colors.main.primary} />}
       {error && <Text style={styles.errorText}>{error}</Text>}
       <ButtonPrimary  onClick={verificar} text="Entrar" estilos={{borderRadius:10}}/>
+      <ButtonPrimary  onClick={setDate} text="Fecha de Trabajo" estilos={{borderRadius:10}}/>
+
+      <AuthCamara showChange={setShowCamara} visible={showCamara} next={setLoginContext}/>
     </View>);
 };
 
 const styles = StyleSheet.create({
 containerImg:{
-
-
   justifyContent: "center",
   alignContent: "center",
   alignItems: "center",
