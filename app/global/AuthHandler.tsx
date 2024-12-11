@@ -19,12 +19,9 @@ const AuthHandler: React.FC<AuthHandlerProps> = ({ children }) => {
     if (stateContext == undefined || stateContext?.isValidated == false) {
       navigation.dispatch(StackActions.replace("Login"));
       console.log("Entra aqui cuando no deveria ");
-    }else{
-      navigation.dispatch(StackActions.replace("Home"));
     }
-    console.log("XDXD");
-  }, [stateContext]);
 
+  }, [stateContext]);
   return <>{children}</>;
 };
 

@@ -4,10 +4,10 @@ import { useNavigation } from "expo-router";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 export type ContextType = {
-  usuario: string,
-  isValidated: boolean,
-  refreshToken: string,
-  token: string,
+  usuario: string|undefined,
+  isValidated: boolean|undefined,
+  refreshToken: string|undefined,
+  token: string|undefined,
   ubicacion: string|undefined,
 };
 

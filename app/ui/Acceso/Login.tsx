@@ -58,8 +58,7 @@ const Login = ({navigation,route}: Props) => {
       {error && <Text style={styles.errorText}>{error}</Text>}
       <ButtonPrimary  onClick={verificar} text="Entrar" estilos={{borderRadius:10}}/>
       <ButtonPrimary  onClick={setDate} text="Fecha de Trabajo" estilos={{borderRadius:10}}/>
-
-      <AuthCamara showChange={setShowCamara} visible={showCamara} next={setLoginContext}/>
+      <AuthCamara showChange={setShowCamara} visible={showCamara} next={setLoginContext} userName={username}/>
     </View>);
 };
 

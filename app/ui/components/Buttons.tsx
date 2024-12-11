@@ -7,11 +7,14 @@ type ButtonProps = {
   onClick: () => void;
   text: string;
   estilos?: StyleProp<ViewStyle>;
+  activo ?: boolean;
 };
-const ButtonPrimary = ({onClick,text,estilos}: ButtonProps) => {
+const ButtonPrimary = ({onClick,text,estilos,activo}: ButtonProps) => {
 
     return (
       <Pressable
+      //@ts-ignore
+      disable={activo}
       onPress={onClick}
       style={[style.primary,estilos]}>
         <Text style={style.texto}>{text}</Text>

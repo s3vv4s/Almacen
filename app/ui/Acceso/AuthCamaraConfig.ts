@@ -9,12 +9,16 @@ import { useEffect, useState , useRef} from "react";
  * Este componente se piensa ser lo mas generico que se pueda pero no sera posible
  * @returns Este componente solo restorna la configuracion de la camara
  */
+
+type Callbacks = {
+  onCapture: (data: string) => Promise<void>;
+  //onError?: (error: string) => void;
+};
 export const AuthCamaraView = () => {
 
-  const [uriImage,setUriImage] = useState<string>("");
   const refCamara = useRef<CameraView>(null);
 
-  const CaptureImage = async () => {
+  const CaptureImage = async (): Promise<string|undefined> => {
     try {
       if(refCamara.current){
         const cameraOpt: CameraPictureOptions = {
@@ -24,28 +28,23 @@ export const AuthCamaraView = () => {
           imageType: "jpg",
         };
         const dataImg = await refCamara.current.takePictureAsync(cameraOpt);
-
-        if (dataImg != null) {
+        if (dataImg != undefined) {
           console.log(dataImg.uri);
-          setUriImage(dataImg?.uri);
+          //Es un call back que recibira el valor de la imagen para, guardar o enviar
+          return dataImg?.uri;
         }
-
+        return "";
       }
     } catch (error) {
       console.log(error);
     }
   };
 const Imprimiendo = () => {
-
   console.log("Imprimiendo");
 };
   return{
     CaptureImage,
-    uriImage,
     refCamara,
     Imprimiendo
-
   };
-
-
 };

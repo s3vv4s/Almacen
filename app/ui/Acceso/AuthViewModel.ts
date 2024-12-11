@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { LoginToken } from "./AuthModel";
 import { useContextState } from "@/app/global/Context";
-import AuthCamara from "./AuthCamara";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, StackActions } from "@react-navigation/native";
 
 
 export const userAuthViewmodel = () => {
 
+  const navi = useNavigation<NavigationProp<Screen>>();
   const [loading,setLoading] = useState<boolean>(false);
   const [error,setError] = useState<string>("");
   const {setContext,stateContext} = useContextState();
@@ -43,6 +45,7 @@ export const userAuthViewmodel = () => {
       usuario:username,
       ubicacion:"Mexico",
     });
+    navi.dispatch(StackActions.replace("Home"));
   };
 
   return {
