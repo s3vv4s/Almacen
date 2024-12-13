@@ -27,24 +27,23 @@ export const AuthCamaraView = () => {
           skipProcessing: true,
           imageType: "jpg",
         };
+
         const dataImg = await refCamara.current.takePictureAsync(cameraOpt);
         if (dataImg != undefined) {
           console.log(dataImg.uri);
           //Es un call back que recibira el valor de la imagen para, guardar o enviar
           return dataImg?.uri;
         }
-        return "";
+        throw new Error("No se pudo capturar la imagen");
       }
     } catch (error) {
-      console.log(error);
+      throw new Error((error as Error).message);
+
     }
   };
-const Imprimiendo = () => {
-  console.log("Imprimiendo");
-};
+
   return{
     CaptureImage,
     refCamara,
-    Imprimiendo
   };
 };

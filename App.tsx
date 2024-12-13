@@ -8,6 +8,8 @@ import ContextProvider from "./app/global/Context";
 import Home from "./app/ui/Home";
 import AuthHandler from "./app/global/AuthHandler";
 import Login from "./app/ui/Acceso/Login";
+import ContextPermisos from "./app/global/ContextPermisos";
+import MenuES from "./app/ui/MenusEntradasSalidas/MenuES";
 
 const Stack = createNativeStackNavigator<RootScreens>();
 
@@ -19,6 +21,7 @@ export default function App() {
 
   return (
     <ContextProvider>
+      <ContextPermisos>
       <NavigationContainer>
         <AuthHandler>
         <Stack.Navigator initialRouteName="Login" >
@@ -31,9 +34,14 @@ export default function App() {
               name="Home"
               component={Home}
               />
+              <Stack.Screen
+                name="MenuES"
+                component={MenuES}
+              />
         </Stack.Navigator>
         </AuthHandler>
       </NavigationContainer>
+      </ContextPermisos>
     </ContextProvider>
   );
 };

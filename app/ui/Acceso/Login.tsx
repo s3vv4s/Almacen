@@ -10,6 +10,7 @@ import PicketCalendar from "../components/PIcketCalendar";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import RootScreens from "@/constants/RootScreens";
 import AuthCamara from "./AuthCamara";
+import { stripBaseUrl } from "expo-router/build/fork/getStateFromPath-forks";
 
 type Props = NativeStackScreenProps<RootScreens, "Login">;
 const Login = ({navigation,route}: Props) => {
@@ -29,8 +30,8 @@ const Login = ({navigation,route}: Props) => {
 
   //Estado para picket fecha de trabajo
   const {dateString,setDate} = PicketCalendar();
-  const verificar = () => {
-    loginUser(dateString);
+  const verificar = async () => {
+    await loginUser(dateString);
   };
 
  return (
@@ -46,13 +47,15 @@ const Login = ({navigation,route}: Props) => {
       <InputPrimary
       placeholder="Usuario"
       value={username}
-      onChangeText={setUserName} />
+      onChangeText={(value:string)=>{
+        let user = value.trim().toLowerCase();
+        setUserName(user);
+      }} />
 
       <InputPrimary
       placeholder="Contraseña"
       value={password}
       onChangeText={setPassword} />
-
 
       {loading && <ActivityIndicator size="large" color={Colors.main.primary} />}
       {error && <Text style={styles.errorText}>{error}</Text>}
