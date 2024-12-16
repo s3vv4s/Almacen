@@ -23,7 +23,7 @@ class Verificacion{
   }
 
   public async Verificar(uriImage: string,nombre:string) {
-
+      this.abort = new AbortController();
       const forms = new FormData();
       forms.append("nickname", nombre);
       forms.append("foto", { name: "fotos.jpg", type: 'image/jpeg', uri: uriImage } as any);

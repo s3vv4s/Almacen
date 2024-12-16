@@ -10,10 +10,7 @@ import { useEffect, useState , useRef} from "react";
  * @returns Este componente solo restorna la configuracion de la camara
  */
 
-type Callbacks = {
-  onCapture: (data: string) => Promise<void>;
-  //onError?: (error: string) => void;
-};
+
 export const AuthCamaraView = () => {
 
   const refCamara = useRef<CameraView>(null);
