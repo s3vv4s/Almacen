@@ -10,6 +10,7 @@ import AuthHandler from "./app/global/AuthHandler";
 import Login from "./app/ui/Acceso/Login";
 import ContextPermisos from "./app/global/ContextPermisos";
 import MenuES from "./app/ui/MenusEntradasSalidas/MenuES";
+import ListaView from "./app/ui/ListaAlmacenes/ListaView";
 
 const Stack = createNativeStackNavigator<RootScreens>();
 
@@ -38,6 +39,10 @@ export default function App() {
                 name="MenuES"
                 component={MenuES}
               />
+              <Stack.Screen
+                name="ListaAlmacenes"
+                component={ListaView}
+                />
         </Stack.Navigator>
         </AuthHandler>
       </NavigationContainer>

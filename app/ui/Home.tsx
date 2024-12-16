@@ -13,7 +13,7 @@ const {statePermisos} = useContextPermisos();
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home</Text>
-      <Text>{JSON.stringify(statePermisos)}</Text>
+      <Text>{statePermisos?.almacenes[1]}</Text>
     </View>
   );
 };

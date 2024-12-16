@@ -16,11 +16,8 @@ const AuthHandler: React.FC<AuthHandlerProps> = ({ children }) => {
   useEffect(() => {
     //Ya funciona el problema es que pasa muy rapido y pasa de lago la validacion, aspi que da un falso aun que este tal vez sea contrario
     //Aqui aremos la validacion de token
-
-
     if (stateContext == undefined || stateContext?.isValidated == false) {
       navigation.dispatch(StackActions.replace("Login"));
-      console.log("Entra aqui cuando no deveria ");
     }
 
   }, [stateContext]);

@@ -1,5 +1,6 @@
 import { DecodeJWT } from "@/models/TypesSeguridad";
 import { createContext, ReactNode, useContext, useState } from "react";
+import { useContextState } from "./Context";
 interface ContextProps{
   statePermisos: DecodeJWT|undefined;
   setStatePermisos: React.Dispatch<React.SetStateAction<DecodeJWT|undefined>>;
@@ -27,5 +28,14 @@ export function  useContextPermisos(): ContextProps {
   }
   return context;
 }
+
+export const getHeader = ():Headers => {
+  const head = new  Headers();
+  const {stateContext} = useContextState();
+  head.append("Content-Type", "application/json");
+  head.append("Authorization", `Bearer ${stateContext?.token}`);
+  return head;
+};
+
 
 export default ContextPermisos;
