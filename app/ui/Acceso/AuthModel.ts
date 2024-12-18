@@ -31,7 +31,7 @@ export const LoginToken = async (username: string, password: string,fecha : Date
     throw new Error((error as Error).message);
   }
 };
-export const RefreshToken = async (username:string, refreshtoken:string):Promise<DecodeJWT> =>{
+export const RefreshToken = async (username:string, refreshtoken:string):Promise<TokenRefresh> =>{
 
   try {
     const head = new  Headers();
@@ -51,15 +51,16 @@ export const RefreshToken = async (username:string, refreshtoken:string):Promise
       throw new Error(`${tt}`);
     }
 
-    //console.log(await res.text());
     const respuesta:TokenRefresh = await JSON.parse(await res.text());
-    console.log(respuesta.fingerprint);
-    const decode = jwtDecode<DecodeJWT>(respuesta.token);
-    console.log(decode);
-    return decode;
+
+
+    return respuesta;
   } catch (error) {
     throw new Error((error as Error).message);
-
-    console.log((error as Error).message);
   }
 };
+
+export const decodeJwt = (refreshToken:string):DecodeJWT =>{
+    const decode = jwtDecode<DecodeJWT>(refreshToken);
+    return decode;
+}

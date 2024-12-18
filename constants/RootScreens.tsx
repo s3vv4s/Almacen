@@ -1,9 +1,13 @@
 
  type RootScreens = {
   Login: undefined,
-  Home: undefined,
   MenuES: undefined,
-  ListaAlmacenes: undefined,
+  ListaAlmacenes: ParamEntraSalida,
+  ListaOc:ParamEntraSalida,
+
+};
+type ParamEntraSalida = {
+  tipo: "E"|"S",
 };
 
 export default RootScreens;

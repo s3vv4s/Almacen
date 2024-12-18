@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { LoginToken, RefreshToken } from "./AuthModel";
+import { decodeJwt, LoginToken, RefreshToken } from "./AuthModel";
 import { useContextState } from "@/app/global/Context";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp, StackActions } from "@react-navigation/native";
@@ -26,6 +26,11 @@ export const userAuthViewmodel = () => {
 
   const [decodeJWT, setDecodeJWT] = useState<DecodeJWT | undefined>(undefined);
 
+  /**
+   * View model que maneja el login del usuario, desde el usuario y contraseña,
+   * por medio de estados,
+   * @returns manejo de estados
+   */
   const loginUser = async (date: string | Date) => {
     console.log("Peticiones de login");
     setLoading(true);
@@ -33,7 +38,9 @@ export const userAuthViewmodel = () => {
     try {
 
       const result = await LoginToken(username, password, date);
-      const decode = await RefreshToken(username, result);
+      const tokens = await RefreshToken(username, result);
+      setRefreshToken(tokens.token);
+      const decode = decodeJwt(tokens.token);
       setDecodeJWT(decode);
       setTokenLogin(result);
       if(!decode.puedeUsarTablet){
@@ -56,6 +63,7 @@ export const userAuthViewmodel = () => {
         token: tokenLogin,
         usuario: username,
         ubicacion: "Mexico",
+        error:undefined,
       });
       setStatePermisos(decodeJWT);
       navi.dispatch(StackActions.replace("MenuES"));

@@ -5,10 +5,10 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
-    "splash":{
-      "image":"./assets/images/logo.png",
-      "resizeMode":"contain",
-      "backgroundColor":"#fff"
+    "splash": {
+      "image": "./assets/images/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
     },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -20,7 +20,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.sevas7.almacen"
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +35,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-       [
+      [
         "expo-camera",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",

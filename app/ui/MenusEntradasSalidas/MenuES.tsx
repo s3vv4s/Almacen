@@ -7,10 +7,10 @@ import { Colors } from "@/constants/Colors";
 
 type Props = NativeStackScreenProps<RootScreens, "MenuES">;
 
-const MenuES = ({ navigation }: Props) => {
+const MenuES = ({ navigation , route}: Props) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row", padding: 20, gap: 20 }}>
-      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("ListaAlmacenes") }}>
+      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("ListaAlmacenes",{tipo:"E"}) }}>
         <Text style={{
           fontSize: 30,
           fontWeight: "bold",
@@ -21,8 +21,7 @@ const MenuES = ({ navigation }: Props) => {
         </Text>
       </CardGradiente>
       {/* Segunada parte */}
-      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("Home") }}>
-
+      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("Login") }}>
         <Text style={{
           fontSize: 30,
           fontWeight: "bold",

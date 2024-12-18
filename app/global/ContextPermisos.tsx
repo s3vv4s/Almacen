@@ -30,7 +30,9 @@ export function  useContextPermisos(): ContextProps {
 }
 
 export const getHeader = ():Headers => {
+  console.log("Config Header");
   const head = new  Headers();
+  console.log("getHeader");
   const {stateContext} = useContextState();
   head.append("Content-Type", "application/json");
   head.append("Authorization", `Bearer ${stateContext?.token}`);
