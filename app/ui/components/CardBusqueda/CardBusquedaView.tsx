@@ -1,5 +1,5 @@
 import { View } from "react-native";
-const CardBusqueda = () => {
+const CardBusquedaView = () => {
   return (
     <View>
 
@@ -7,4 +7,4 @@ const CardBusqueda = () => {
   );
 };
 
-export default CardBusqueda;
+export default CardBusquedaView;
