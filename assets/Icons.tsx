@@ -7,7 +7,7 @@ const Icon = ({ name, size, color ="" } : { name:EnumIcons, size: number, color?
  return (
     <Image
       source={path}
-      style={{ width: size, height: size,resizeMode:"stretch" ,tintColor: ""}}
+      style={{ width: size, height: size,resizeMode:"stretch" ,tintColor:color}}
     />
   );
 };

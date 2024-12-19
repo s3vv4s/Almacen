@@ -30,7 +30,7 @@ const ListaView = ({ navigation, route }: Props) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => navigation.navigate("ListaOc", { tipo: route.params.tipo })}
+            onPress={() => navigation.navigate("ListaOc", { tipo: route.params.tipo, almacen:item.almacenID })}
             style={{
               flex: 1,
               borderColor: Colors.main.primary,

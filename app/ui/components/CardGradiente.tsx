@@ -56,7 +56,7 @@ const CardGradiente = ({ children, style, icono, activate }: Props) => {
           shadowRadius: 3.84,
           elevation: 5,
         }}>
-          <Icon name={icono} size={90} color={"white"} />
+          <Icon name={icono} size={90}  />
         </View>
       </View>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column" }}>

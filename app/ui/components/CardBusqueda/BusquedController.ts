@@ -11,7 +11,7 @@ class BusquedController {
   }
 
   public async getMovimientos(argSearch: ArgumentsMovimientos|undefined): Promise<Movimientos> {
-
+    console.log(this.buildUrl(argSearch));
     const response = await fetch(this.buildUrl(argSearch),{
       method: "GET",
       headers: this.header,
@@ -25,7 +25,10 @@ class BusquedController {
   }
 
   private buildUrl(args: ArgumentsMovimientos|undefined) : string{
-    return MovimientosAlmacen.movimientos+`?AlmacenID=${args?.AlmacenID}&AsignacionID=${args?.AsignacionID}&MovimientoID=-1&observaciones=${args?.observaciones}&orderBy=MovimientoID desc&pagina=${args?.pagina}&referencia=&status=${args?.status}&tipoMovimiento=${args?.tipoMovimiento}`;
+    if (args?.MovimientoID != undefined || args?.MovimientoID == "" || args?.MovimientoID == "-") {
+        args.MovimientoID = -1;
+    }
+    return MovimientosAlmacen.movimientos+`AlmacenID=${args?.AlmacenID}&AsignacionID=${args?.AsignacionID}&MovimientoID=${args?.MovimientoID}&observaciones=${args?.observaciones}&orderBy=MovimientoID desc&pagina=${args?.pagina}&referencia=${args?.referencia}&status=${args?.status}&tipoMovimiento=${args?.tipoMovimiento}`;
   }
 
 }

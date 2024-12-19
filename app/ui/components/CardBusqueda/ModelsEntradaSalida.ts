@@ -22,25 +22,14 @@ export type ListaMovimiento ={
 }
 
 export type ArgumentsMovimientos = {
-AlmacenID: number,
-AsignacionID: number,
-//MovimientoID: number,//Se quita
-observaciones: string,
+AlmacenID?: number,
+AsignacionID?: number|string,
+MovimientoID?: number|string,//Se quita
+observaciones?: string,
 //orderBy:"MovimientoID desc",//se quita
-pagina:number,
-//referencia:string, ///Esta la eliminaremos
-status:string|"NUEVO"|"APLICADO",
-tipoMovimiento:string|"S"|"E",
+pagina?:number,
+referencia?:string, ///Esta la eliminaremos
+status?:string|"NUEVO"|"APLICADO",
+tipoMovimiento?:string|"S"|"E",
 
 }
-/*
-AlmacenID=15
-&AsignacionID=
-&MovimientoID=-1
-&observaciones=
-&orderBy=MovimientoID desc
-&pagina=1
-&referencia= ///Esta la eliminaremos
-&status=
-&tipoMovimiento=
-*/

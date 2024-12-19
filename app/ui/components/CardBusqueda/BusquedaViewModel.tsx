@@ -1,24 +1,47 @@
 import { useContextState } from "@/app/global/Context";
 import BusquedController from "./BusquedController";
 import { ArgumentsMovimientos, Movimientos } from "./ModelsEntradaSalida";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const BusquedaViewModel = () => {
-  const [search, setSearch] = useState<Movimientos>();
-  const [argMovimientos,setArgMovimientos] = useState<ArgumentsMovimientos>();
+const BusquedaViewModel = (almacen:number,tipoMovimiento:string) => {
+  const [movimientos, setMovimientos] = useState<Movimientos>();
+  const [showBusqueda, setShowBusqueda] = useState<boolean>(false);
+  const [argMovimientos,setArgMovimientos] = useState<ArgumentsMovimientos>({
+    AlmacenID:almacen,
+    AsignacionID:"",
+    MovimientoID:'2',
+    observaciones:"",
+    pagina:1,
+    referencia:"",
+    status:"",
+    tipoMovimiento:tipoMovimiento,
+
+  });
+  useEffect(()=>{
+    console.log("useEffect");
+    getMovimientos();
+  },[]);
+
   const {stateContext} = useContextState();
+
   const getMovimientos = async () => {
+    console.log("getMovimientos");
        const head = new Headers();
       head.append("Content-Type", "application/json");
       head.append("Authorization", `Bearer ${stateContext?.refreshToken}`);
     const controller = new BusquedController(head);
     const response = await controller.getMovimientos(argMovimientos);
-    console.log(response);
-    setSearch(response);
+    console.log(JSON.stringify(response));
+    setMovimientos(response);
   };
   return {
-    getMovimientos
-
+    getMovimientos,
+    setArgMovimientos,
+    movimientos,
+    argMovimientos,
+    setMovimientos,
+    showBusqueda,
+    setShowBusqueda
 
   };
 };
