@@ -1,76 +1,90 @@
-import { View, TextInput, Text, StyleSheet, Pressable, Animated } from "react-native";
+import { View, TextInput, Text, StyleSheet, Pressable } from "react-native";
 import { ArgumentsMovimientos } from "./ModelsEntradaSalida";
 import { useEffect, useRef, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Icon from "@/assets/Icons";
 import { EnumIcons } from "@/assets/EnumIcons";
 
-
+import Animated, {
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import AppAccordeon, { MvvMAcordeon } from "../../ListaOC/Accordion";
+import InputPrimary from "../Inputs";
 type Props = {
   argBusqueda: ArgumentsMovimientos,
   setBusqueda: React.Dispatch<React.SetStateAction<ArgumentsMovimientos>>;
   getMovimientos: () => void,
   setShowBusqueda: React.Dispatch<React.SetStateAction<boolean>>;
   showBusqueda: boolean;
+  callbackActivate?: () => void;
 };
 
-const CardBusquedaView = ({ argBusqueda, getMovimientos, setBusqueda, setShowBusqueda, showBusqueda }: Props) => {
 
+const CardBusquedaView = ({ argBusqueda, getMovimientos, setBusqueda, setShowBusqueda, showBusqueda, callbackActivate }: Props) => {
+  const { isExpanded, width, setIsExpanded, setMaxP, setMinP } = MvvMAcordeon();
+  useEffect(() => {
+    setMaxP(1);
+    setMinP(0);
+  }, []);
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center" }}>
-        <Text style={{ fontSize: 18, padding: 6, fontWeight: "bold", color: Colors.main.primary }}>
-          Busqueda De Movimientos
-        </Text>
-        <Pressable onPress={() => {
-          setShowBusqueda(!showBusqueda);
-        }}>
-          {!showBusqueda ? (
-            <Icon name={EnumIcons.ArrowBarDown} size={30} color={Colors.main.primary} />
-          ) : (
-            <Icon name={EnumIcons.ArrowBarUp} size={30} color={Colors.main.primary} />
-          )}
-        </Pressable>
 
-      </View>
-
-      {showBusqueda &&
+    <AppAccordeon width={width} >
+      <View style={styles.container}>
         <View style={{
-          borderColor: Colors.main.primary,
-          borderWidth: 1,
-          borderRadius: 10,
-          flex: 1,
+          alignSelf: "stretch",
           flexDirection: "row",
           justifyContent: "space-between",
           alignContent: "center",
-          alignItems: "center",
-          padding: 10,
         }}>
-          <TextInput
-            style={styles.input}
-            placeholder="MovimientoID"
-            keyboardType="numeric"
-            value={argBusqueda?.MovimientoID?.toString()}
-            onChangeText={(val) => {
-              setBusqueda({ ...argBusqueda, MovimientoID: val });
-            }}
-          />
-
+          <Text style={{ fontSize: 18, padding: 6, fontWeight: "bold", color: Colors.main.primary }}>
+            Busqueda De Movimientos
+          </Text>
+          <Pressable onPress={() => {
+            setIsExpanded(!isExpanded);
+            setShowBusqueda(!showBusqueda);
+            callbackActivate?.();
+          }}>
+            {!showBusqueda ? (
+              <Icon name={EnumIcons.ArrowBarDown} size={30} color={Colors.main.primary} />
+            ) : (
+              <Icon name={EnumIcons.ArrowBarUp} size={30} color={Colors.main.primary} />
+            )}
+          </Pressable>
         </View>
-      }
+        {showBusqueda &&
+          <View style={{
+            flex: 1,
+            alignSelf: "stretch",
+            justifyContent: "space-around",
+            alignContent: "center",
+          }}>
+            <TextInput
+              keyboardType="numeric"
+              style={styles.input}
+              placeholder="MovimientoID"
+              value={argBusqueda?.MovimientoID?.toString()}
+              onChangeText={(val) => {
+                setBusqueda({ ...argBusqueda, MovimientoID: val });
+              }} />
+          </View>
+        }
 
-    </View>
+      </View>
+    </AppAccordeon>
+
+
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignContent: 'center',
     flexDirection: 'column',
     padding: 10,
@@ -80,10 +94,11 @@ const styles = StyleSheet.create({
 
   },
   input: {
-    flex: 1,
+    marginTop: 50,
+    position: "sticky",
     borderBottomColor: Colors.main.primary,
     borderBottomWidth: 4,
-    color: 'red',
+    zIndex: 99
 
   }
 });
