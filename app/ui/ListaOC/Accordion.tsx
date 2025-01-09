@@ -1,34 +1,31 @@
 import { Colors } from '@/constants/Colors';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Button, SafeAreaView, Pressable, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated';
 
 
 
-type PropsShow={
+type PropsShow = {
   width: Animated.SharedValue<number>,
   children: React.ReactNode,
-
-
 }
-const AppAccordeon = ({ width, children,}: PropsShow) => {
-useEffect((
+const AppAccordeon = ({ width, children, }: PropsShow) => {
+  useEffect((
 
-)=>{ console.log("accordion useEffect");},[width]);
+  ) => { console.log("accordion useEffect"); }, [width]);
   return (
-      <Animated.View
-        style={{
-          flex: width,
-          minHeight: 80,
-          borderColor: Colors.main.primary,
-          borderWidth: 1,
-        }}>
+    <Animated.View
+      style={{
+        flex: width,
+        maxHeight:"40%",
+        minHeight: "40%",
+        borderColor: Colors.main.primary,
+        borderWidth: 1,
+        position: 'sticky',
+      }}>
       {children}
     </Animated.View>
   );
@@ -42,9 +39,9 @@ export const MvvMAcordeon = () => {
   const [maxP, setMaxP] = useState<number>(0);
 
   const width = useSharedValue(0);
-useEffect(()=>{
-  handlePress();
-},[isExpanded]);
+  useEffect(() => {
+    handlePress();
+  }, [isExpanded]);
   const handlePress = () => {
     //setIsExpanded(!isExpanded);
     width.value = withSpring(isExpanded ? maxP : minP);
@@ -103,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppAccordeon;
+//export default AppAccordeon;

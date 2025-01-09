@@ -22,7 +22,7 @@ const ListaView = ({ navigation, route }: Props) => {
     <View>
 
       <Pressable onPress={async () => await getListaAlmacenes()}>
-        <Text>ListaView</Text>
+
       </Pressable>
       <FlatList
         numColumns={3}
@@ -30,7 +30,7 @@ const ListaView = ({ navigation, route }: Props) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => navigation.navigate("ListaOc", { tipo: route.params.tipo, almacen:item.almacenID })}
+            onPress={() => navigation.navigate("ListaOc", { tipo: route.params.tipo, almacen:item })}
             style={{
               flex: 1,
               borderColor: Colors.main.primary,

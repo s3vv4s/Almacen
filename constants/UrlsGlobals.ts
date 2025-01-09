@@ -1,10 +1,16 @@
-export enum EntrasAlmacen{
-  root = "http://172.16.9.10/WebServicesARM/ControlAlmacenes/api/",
+const root = "http://172.16.9.10/WebServicesARM/ControlAlmacenes/api/";
+
+export enum AlmacenesList{
   ListAlmacenes = root+"Almacenes/almacenesAsignados",
 }
 
 export enum MovimientosAlmacen{
-  root = "http://172.16.9.10/WebServicesARM/ControlAlmacenes/api",
-  movimientos = root+ "/Movimientos/?"
+  movimientos = root+ "Movimientos/?"
+}
 
+export enum EntradasAlmacen{
+  Entradas = root+ "EntradasPorOrdenDeCompra/"
+}
+export enum SalidasAlmacen{
+  Salidas = root+ "SalidasPorOrdenDeCompra/"
 }

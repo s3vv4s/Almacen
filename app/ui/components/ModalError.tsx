@@ -29,7 +29,7 @@ const ModalError = ({ mostrar, setMostrar, error, action }: Props) => {
           }}>
             {error?.message}
           </Text>
-          <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", color: Colors.main.primary }} >Error de acceso o internet inicide Sesion de nuevo</Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", color: Colors.main.primary }} >Error de acceso o internet inicie Sesion de nuevo</Text>
           <Buttons
             estilos={{ marginTop: 10, alignSelf: "flex-end" }}
             onClick={() => { setMostrar(false); action(); }}

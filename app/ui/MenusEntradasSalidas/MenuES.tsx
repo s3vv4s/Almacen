@@ -21,7 +21,7 @@ const MenuES = ({ navigation , route}: Props) => {
         </Text>
       </CardGradiente>
       {/* Segunada parte */}
-      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("Login") }}>
+      <CardGradiente icono={EnumIcons.LogoDif} activate={() => { navigation.navigate("ListaAlmacenes",{tipo:"S"}) }}>
         <Text style={{
           fontSize: 30,
           fontWeight: "bold",

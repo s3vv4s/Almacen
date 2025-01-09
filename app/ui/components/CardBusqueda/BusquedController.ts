@@ -1,6 +1,7 @@
 import { MovimientosAlmacen } from "@/constants/UrlsGlobals";
-import { ArgumentsMovimientos, Movimientos } from "./ModelsEntradaSalida";
+import { ArgumentsMovimientos } from "./ModelBusqueda";
 import ManagerError from "@/utils/ManagerError";
+import { Movimientos } from "../../ListaOC/ListaOCModels";
 
 class BusquedController {
 
@@ -20,13 +21,14 @@ class BusquedController {
     if(response.status == 401){
       throw new ManagerError(text, response.status);
     }
-    const parse: Movimientos = JSON.parse(text);
+    const parse: Movimientos = await JSON.parse(text);
     return parse;
   }
 
   private buildUrl(args: ArgumentsMovimientos|undefined) : string{
-    if (args?.MovimientoID != undefined || args?.MovimientoID == "" || args?.MovimientoID == "-") {
+    if (args?.MovimientoID == "" || args?.MovimientoID == "-") {
         args.MovimientoID = -1;
+        console.log("No deberia entrar");
     }
     return MovimientosAlmacen.movimientos+`AlmacenID=${args?.AlmacenID}&AsignacionID=${args?.AsignacionID}&MovimientoID=${args?.MovimientoID}&observaciones=${args?.observaciones}&orderBy=MovimientoID desc&pagina=${args?.pagina}&referencia=${args?.referencia}&status=${args?.status}&tipoMovimiento=${args?.tipoMovimiento}`;
   }

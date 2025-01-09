@@ -1,105 +1,142 @@
-import { View, TextInput, Text, StyleSheet, Pressable } from "react-native";
-import { ArgumentsMovimientos } from "./ModelsEntradaSalida";
-import { useEffect, useRef, useState } from "react";
+import { View, TextInput, Text, StyleSheet, Pressable, KeyboardAvoidingView, Platform } from "react-native";
+import { ArgumentsMovimientos } from "./ModelBusqueda";
+import React, { useEffect, useRef, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import Icon from "@/assets/Icons";
 import { EnumIcons } from "@/assets/EnumIcons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import DropdownComponent from "./Drop";
 
-import Animated, {
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
-import AppAccordeon, { MvvMAcordeon } from "../../ListaOC/Accordion";
-import InputPrimary from "../Inputs";
 type Props = {
   argBusqueda: ArgumentsMovimientos,
-  setBusqueda: React.Dispatch<React.SetStateAction<ArgumentsMovimientos>>;
+  setArgBusqueda: React.Dispatch<React.SetStateAction<ArgumentsMovimientos>>;
   getMovimientos: () => void,
   setShowBusqueda: React.Dispatch<React.SetStateAction<boolean>>;
   showBusqueda: boolean;
-  callbackActivate?: () => void;
+  txtAlmacen: string;
+  tipoMovimiento: string;
+
 };
 
 
-const CardBusquedaView = ({ argBusqueda, getMovimientos, setBusqueda, setShowBusqueda, showBusqueda, callbackActivate }: Props) => {
-  const { isExpanded, width, setIsExpanded, setMaxP, setMinP } = MvvMAcordeon();
+const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShowBusqueda, showBusqueda, txtAlmacen, tipoMovimiento}: Props) => {
+
+  //const { isExpanded, width, setIsExpanded, setMaxP, setMinP } = MvvMAcordeon();
+  const [sizeView, setSizeView] = useState<boolean>(false);
   useEffect(() => {
-    setMaxP(1);
-    setMinP(0);
-  }, []);
+
+  }, [setArgBusqueda]);
+
   return (
 
-    <AppAccordeon width={width} >
-      <View style={styles.container}>
+    <View style={[styles.container, { flex: showBusqueda ? 1 : 0.12}]}>
+      <View style={{
+
+
+        alignSelf: "stretch",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignContent: "center",
+
+      }}>
+
+      <Text style={{fontSize:20, marginLeft:4}}>
+        {tipoMovimiento == "E" ? "Entradas" : "Salidas"} de Almacen - {txtAlmacen} <MaterialCommunityIcons name="home-city-outline" size={24} color={Colors.main.primary}  /></Text>
+
         <View style={{
-          alignSelf: "stretch",
-          flexDirection: "row",
-          justifyContent: "space-between",
+          flex: 1,
+          justifyContent: "flex-end",
           alignContent: "center",
+          flexDirection: "row",
+
+
         }}>
-          <Text style={{ fontSize: 18, padding: 6, fontWeight: "bold", color: Colors.main.primary }}>
-            Busqueda De Movimientos
-          </Text>
-          <Pressable onPress={() => {
-            setIsExpanded(!isExpanded);
-            setShowBusqueda(!showBusqueda);
-            callbackActivate?.();
-          }}>
-            {!showBusqueda ? (
-              <Icon name={EnumIcons.ArrowBarDown} size={30} color={Colors.main.primary} />
-            ) : (
-              <Icon name={EnumIcons.ArrowBarUp} size={30} color={Colors.main.primary} />
-            )}
-          </Pressable>
+        <Text style={{ fontSize: 16,
+          padding: 6, fontWeight: "bold", color: Colors.main.primary, }}>
+          Busqueda De Movimientos
+        </Text>
+
+        <Pressable onPress={() => {
+          setShowBusqueda(!showBusqueda);
+          setSizeView(!sizeView);
+        }}>
+          {!showBusqueda ? (
+            <Icon name={EnumIcons.ArrowBarDown} size={30} color={Colors.main.primary}   />
+          ) : (
+            <Icon name={EnumIcons.ArrowBarUp} size={30} color={Colors.main.primary} />
+          )}
+        </Pressable>
         </View>
-        {showBusqueda &&
+      </View>
+
+      {showBusqueda &&
+        <View style={{
+          flex: 1,
+          alignSelf: "stretch",
+          justifyContent: "space-around",
+          alignContent: "center",
+          flexDirection: "row",
+
+
+        }}>
+          {/*id de Movimiento*/}
           <View style={{
             flex: 1,
-            alignSelf: "stretch",
-            justifyContent: "space-around",
-            alignContent: "center",
+            margin: 10,
+
+
           }}>
             <TextInput
               keyboardType="numeric"
               style={styles.input}
-              placeholder="MovimientoID"
-              value={argBusqueda?.MovimientoID?.toString()}
+
+              placeholder="Clave de Movimiento"
+              value={argBusqueda?.MovimientoID?.toString() === "-1" ? "" : argBusqueda?.MovimientoID?.toString()}
               onChangeText={(val) => {
-                setBusqueda({ ...argBusqueda, MovimientoID: val });
+                setArgBusqueda({ ...argBusqueda, MovimientoID: val });
               }} />
           </View>
-        }
+          {/*Estatus*/}
+          <DropdownComponent argBusqueda={argBusqueda} setArgBusqueda={setArgBusqueda} />
+          <Pressable onPress={() => getMovimientos()}
+            style={{
+            height: 40,
+              width: 40,
+              margin: 10,
+              justifyContent: "center",
+              backgroundColor: Colors.main.secondary,
+              borderRadius: 10,
+              padding: 6,
+            }}>
+          <MaterialCommunityIcons name="store-search-outline" size={30} color={Colors.main.primary} disabled={false} />
+          </Pressable>
+          </View>
 
-      </View>
-    </AppAccordeon>
 
+      }
 
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     margin: 10,
     borderRadius: 10,
     justifyContent: 'flex-start',
     alignContent: 'center',
     flexDirection: 'column',
-    padding: 10,
+    padding: 6,
     borderColor: Colors.main.primary,
     borderWidth: 2,
     backgroundColor: Colors.main.card,
-
   },
   input: {
-    marginTop: 50,
-    position: "sticky",
+    width: "100%",
+
+    position: "absolute",
     borderBottomColor: Colors.main.primary,
     borderBottomWidth: 4,
-    zIndex: 99
-
   }
 });
 

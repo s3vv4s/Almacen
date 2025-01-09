@@ -10,7 +10,7 @@ import AuthHandler from "./app/global/AuthHandler";
 import Login from "./app/ui/Acceso/Login";
 import ContextPermisos from "./app/global/ContextPermisos";
 import MenuES from "./app/ui/MenusEntradasSalidas/MenuES";
-import ListaView, { ScreensOc } from "./app/ui/ListaAlmacenes/ListaView";
+import ListaView from "./app/ui/ListaAlmacenes/ListaView";
 import ListaOCView from "./app/ui/ListaOC/ListaOCView";
 
 const Stack = createNativeStackNavigator<RootScreens>();
@@ -45,7 +45,7 @@ export default function App() {
             <Stack.Screen
               name="ListaOc"
               component={ListaOCView}
-              options={{ title: "Lista de Ocupaciones" }}
+              options={{ title: "Control de Movimientos" }}
             />
 
             </Stack.Navigator>

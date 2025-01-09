@@ -1,4 +1,4 @@
-import { EntrasAlmacen } from "@/constants/UrlsGlobals";
+import { AlmacenesList} from "@/constants/UrlsGlobals";
 import { Almacen } from "./ListaModel";
 import  ManagerError  from "@/utils/ManagerError";
 
@@ -10,7 +10,7 @@ class ListaController {
     this.head = head;
   }
   public getListaAlmacenes = async ():Promise<Array<Almacen>> => {
-    const res = await fetch(EntrasAlmacen.ListAlmacenes,{
+    const res = await fetch(AlmacenesList.ListAlmacenes,{
       method: "GET",
       headers:this.head ,
     });

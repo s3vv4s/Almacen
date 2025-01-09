@@ -1,3 +1,4 @@
+import { Almacen } from "@/app/ui/ListaAlmacenes/ListaModel";
 
  type RootScreens = {
   Login: undefined,
@@ -11,7 +12,7 @@ type ParamEntraSalida = {
 };
 type ListaOcArgs = {
   tipo: "E"|"S",
-  almacen:number,
+  almacen:Almacen,
 };
 
 export default RootScreens;
