@@ -30,7 +30,7 @@ class BusquedController {
         args.MovimientoID = -1;
         console.log("No deberia entrar");
     }
-    return MovimientosAlmacen.movimientos+`AlmacenID=${args?.AlmacenID}&AsignacionID=${args?.AsignacionID}&MovimientoID=${args?.MovimientoID}&observaciones=${args?.observaciones}&orderBy=MovimientoID desc&pagina=${args?.pagina}&referencia=${args?.referencia}&status=${args?.status}&tipoMovimiento=${args?.tipoMovimiento}`;
+    return MovimientosAlmacen.movimientos+`AlmacenID=${args?.AlmacenID}&AsignacionID=${args?.AsignacionID}&MovimientoID=${args?.MovimientoID}&observaciones=${args?.observaciones}&orderBy=MovimientoID desc&pagina=${args?.pagina}&referencia=${args?.referencia}&status=${args?.status}&tipoMovimiento=${args?.tipoMovimiento}&cve_ordenCompra=${args?.cve_ordenCompra}`;
   }
 
 }

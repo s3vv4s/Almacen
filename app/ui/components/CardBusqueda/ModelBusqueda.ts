@@ -10,5 +10,5 @@ pagina?:number,
 referencia?:string, ///Esta la eliminaremos
 status?:string|"NUEVO"|"APLICADO",
 tipoMovimiento?:string|"S"|"E",
-
+cve_ordenCompra:string
 }

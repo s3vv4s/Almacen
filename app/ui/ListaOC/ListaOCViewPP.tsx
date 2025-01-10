@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable, ScrollView,KeyboardAvoidingView, Platform, } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import RootScreens, { ListaOcArgs } from "@/constants/RootScreens";
 import CardBusquedaView from "../components/CardBusqueda/CardBusquedaView";
@@ -14,9 +14,10 @@ import ModalCondicion, { ModalErrorMsg } from "../components/ModalCondicion";
 import { useContextPermisos } from "@/app/global/ContextPermisos";
 import { useContextSelectAlmacenAndType } from "@/app/global/ContextAlmacenType";
 
- type Props = NativeStackScreenProps<RootScreens, "OrdenesCompra">;
-const ListaOCViewPP= () => {
-  const {selectAlmacenAndType,setSelectAlmacenAndType} = useContextSelectAlmacenAndType();
+
+type Props = NativeStackScreenProps<RootScreens, "OrdenesCompra">;
+const ListaOCViewPP = () => {
+  const { selectAlmacenAndType, setSelectAlmacenAndType } = useContextSelectAlmacenAndType();
   const {
     argMovimientos,
     setArgMovimientos,
@@ -54,34 +55,36 @@ const ListaOCViewPP= () => {
   };
   return (
 
-    <View style={{ flex: 1, flexDirection: "column" }}>
-      <ModalCondicion setMostrarTask={setMostrarTask} mostrarTask={mostrarTask} task="¿Eliminar Movimiento?" action={RemoverMovimiento} />
-      <ModalErrorMsg setMostrarTask={setErrorShow} mostrarTask={errorShow} task={msgError} />
-      <CardBusquedaView
-        tipoMovimiento={selectAlmacenAndType?.tipo}
-        txtAlmacen={selectAlmacenAndType?.almacen.descripcion}
-        setArgBusqueda={setArgMovimientos}
-        argBusqueda={argMovimientos}
-        getMovimientos={getMovimientos}
-        setShowBusqueda={setShowBusqueda}
-        showBusqueda={showBusqueda}
-      />
-      <View style={{ flex: 2 }}>
-        <FlatList
-          numColumns={3}
-          data={movimientos?.lista}
-          keyExtractor={(item, index) => index.toString()}
-          style={{
-            flex: 1,
-          }}
-          renderItem={({ item }) => (
-            <CardOrdenCompra item={item}
-              setMovimiento={ShowMovimiento}
-              removeMovimiento={RemoverMovimiento} />
-          )}
+      <View style={{ flex: 1,  }}>
+        <CardBusquedaView
+          tipoMovimiento={selectAlmacenAndType?.tipo}
+          txtAlmacen={selectAlmacenAndType?.almacen.descripcion}
+          setArgBusqueda={setArgMovimientos}
+          argBusqueda={argMovimientos}
+          getMovimientos={getMovimientos}
+          setShowBusqueda={setShowBusqueda}
+          showBusqueda={showBusqueda}
         />
+        <View style={{ flex: 1, height: "auto" }}>
+          <FlatList
+            numColumns={3}
+            data={movimientos?.lista}
+            keyExtractor={(item, index) => index.toString()}
+            style={{
+              flex: 1,
+            }}
+            renderItem={({ item }) => (
+              <CardOrdenCompra item={item}
+                setMovimiento={ShowMovimiento}
+                removeMovimiento={RemoverMovimiento} />
+            )}
+          />
+        </View>
+        <ModalCondicion setMostrarTask={setMostrarTask} mostrarTask={mostrarTask} task="¿Eliminar Movimiento?" action={RemoverMovimiento} />
+        <ModalErrorMsg setMostrarTask={setErrorShow} mostrarTask={errorShow} task={msgError} />
+
       </View>
-    </View>
+
   );
 };
 type Item = {
@@ -166,7 +169,7 @@ const CardOrdenCompra = ({ item, removeMovimiento, setMovimiento }: Item) => {
           <Text numberOfLines={3}
             style={{ margin: 10, marginTop: 1 }}>{item.observaciones}</Text>
         </Row>
-          {statePermisos?.puedeEliminarMovimientos &&
+        {statePermisos?.puedeEliminarMovimientos &&
           <View style={{ flex: 1 }}>
             <Pressable
               onPress={() => {
@@ -186,7 +189,7 @@ const CardOrdenCompra = ({ item, removeMovimiento, setMovimiento }: Item) => {
               <FontAwesome5 name="trash-alt" size={26} color={Colors.main.primary} />
             </Pressable>
           </View>
-}
+        }
 
       </Row>
 

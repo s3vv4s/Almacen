@@ -23,9 +23,8 @@ const BusquedaViewModel = (almacen: number|undefined, tipoMovimiento: string|und
     referencia: "",
     status: "",
     tipoMovimiento: tipoMovimiento,
-
+    cve_ordenCompra:"",
   });
-
 
   useEffect(() => {
     getMovimientos();

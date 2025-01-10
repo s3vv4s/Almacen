@@ -164,7 +164,7 @@ const CardOrdenCompra = ({ item, removeMovimiento, setMovimiento }: Item) => {
           <Text numberOfLines={3}
             style={{ margin: 10, marginTop: 1 }}>{item.observaciones}</Text>
         </Row>
-          {statePermisos?.puedeEliminarMovimientos &&
+          {!statePermisos?.puedeEliminarMovimientos &&
           <View style={{ flex: 1 }}>
             <Pressable
               onPress={() => {
