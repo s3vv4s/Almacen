@@ -5,7 +5,13 @@ import { useEffect, useState } from "react";
 import ManagerError from "@/utils/ManagerError";
 import { Movimientos } from "../../ListaOC/ListaOCModels";
 
-const BusquedaViewModel = (almacen: number, tipoMovimiento: string) => {
+/**
+ * En lugar de usar estos comp parmetros se podria usar un context para el manejo de estos, pero no se se puede usar en View Model
+ * @param almacen
+ * @param tipoMovimiento
+ * @returns
+ */
+const BusquedaViewModel = (almacen: number|undefined, tipoMovimiento: string|undefined) => {
   const [movimientos, setMovimientos] = useState<Movimientos>();
   const [showBusqueda, setShowBusqueda] = useState<boolean>(false);
   const [argMovimientos, setArgMovimientos] = useState<ArgumentsMovimientos>({

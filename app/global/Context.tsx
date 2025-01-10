@@ -1,7 +1,5 @@
-import RootScreens from "@/constants/RootScreens";
+
 import ManagerError from "@/utils/ManagerError";
-import { NavigationProp, StackActions, StackNavigationState } from "@react-navigation/native";
-import { useNavigation } from "expo-router";
 import React, { createContext, ReactNode, useContext,useState } from "react";
 
 export type ContextType = {
@@ -10,7 +8,6 @@ export type ContextType = {
   refreshToken: string|undefined,
   token: string|undefined,
   ubicacion: string|undefined,
-  //Error
   error: ManagerError|undefined,
 };
 

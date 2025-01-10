@@ -13,15 +13,12 @@ type Props = {
 
 const ModalError = ({ mostrar, setMostrar, error, action }: Props) => {
 
-  const { setContext } = useContextState();
   return (
     <Modal
       transparent={true}
-
       visible={mostrar}>
       <View style={styles.container}>
         <View style={styles.card}>
-
           <Text style={{
             fontSize: 20, fontWeight: "bold",
             textAlign: "center", color: Colors.main.primary,
@@ -34,7 +31,6 @@ const ModalError = ({ mostrar, setMostrar, error, action }: Props) => {
             estilos={{ marginTop: 10, alignSelf: "flex-end" }}
             onClick={() => { setMostrar(false); action(); }}
             text={"Aceptar"} />
-
         </View>
       </View>
     </Modal>

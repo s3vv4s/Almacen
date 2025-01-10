@@ -6,11 +6,14 @@ import { Almacen } from "@/app/ui/ListaAlmacenes/ListaModel";
   ListaAlmacenes: ParamEntraSalida,
   ListaOc:ListaOcArgs,
 
+  OrdenesCompra:undefined,
+  TabsPrueba:undefined
+
 };
 type ParamEntraSalida = {
   tipo: "E"|"S",
 };
-type ListaOcArgs = {
+export type ListaOcArgs = {
   tipo: "E"|"S",
   almacen:Almacen,
 };

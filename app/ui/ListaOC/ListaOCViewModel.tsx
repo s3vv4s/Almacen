@@ -9,13 +9,14 @@ const ViewCOntrolOC = () => {
   const [errorShow,setErrorShow] = useState<boolean>(false);
   const [msgError, setMsgError] = useState<string>("");
 
-  const removeMovimiento = async (selectedMovimiento: Movimiento,tipo: "E"|"S") => {
+  const removeMovimiento = async (selectedMovimiento: Movimiento|null,tipo: "E"|"S"|undefined) => {
+
     try {
       const head = new Headers();
       head.append("Content-Type", "application/json");
       head.append("Authorization", `Bearer ${stateContext?.refreshToken}`);
       const controller = new ListaController(head , tipo);
-      await controller.removeOc(selectedMovimiento.movimientoID ,selectedMovimiento.almacenID);
+      await controller.removeOc(selectedMovimiento?.movimientoID ,selectedMovimiento?.almacenID);
 
     } catch (error) {
       console.log((error as ManagerError).message);
@@ -27,14 +28,17 @@ const ViewCOntrolOC = () => {
           });
           return;
       }
-      setMsgError((error as Error).message);
+      setMsgError((error as ManagerError).message);
       setErrorShow(true);
     }
 
   };
 
   return {
-    removeMovimiento
+    removeMovimiento,
+    setErrorShow,
+    errorShow,
+    msgError
   };
 }
 

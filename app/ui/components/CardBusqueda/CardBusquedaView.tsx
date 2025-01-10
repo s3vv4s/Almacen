@@ -13,8 +13,8 @@ type Props = {
   getMovimientos: () => void,
   setShowBusqueda: React.Dispatch<React.SetStateAction<boolean>>;
   showBusqueda: boolean;
-  txtAlmacen: string;
-  tipoMovimiento: string;
+  txtAlmacen: string|undefined;
+  tipoMovimiento: string|undefined;
 
 };
 

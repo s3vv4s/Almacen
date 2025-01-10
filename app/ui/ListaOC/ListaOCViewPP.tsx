@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import RootScreens from "@/constants/RootScreens";
+import RootScreens, { ListaOcArgs } from "@/constants/RootScreens";
 import CardBusquedaView from "../components/CardBusqueda/CardBusquedaView";
 import BusquedaViewModel from "../components/CardBusqueda/BusquedaViewModel";
 import React, { useEffect, useState } from "react";
@@ -12,9 +12,11 @@ import ViewCOntrolOC from "./ListaOCViewModel";
 import { Movimiento } from "./ListaOCModels";
 import ModalCondicion, { ModalErrorMsg } from "../components/ModalCondicion";
 import { useContextPermisos } from "@/app/global/ContextPermisos";
-type Props = NativeStackScreenProps<RootScreens, "ListaOc">;
+import { useContextSelectAlmacenAndType } from "@/app/global/ContextAlmacenType";
 
-const ListaOCView = ({ navigation, route }: Props) => {
+ type Props = NativeStackScreenProps<RootScreens, "OrdenesCompra">;
+const ListaOCViewPP= () => {
+  const {selectAlmacenAndType,setSelectAlmacenAndType} = useContextSelectAlmacenAndType();
   const {
     argMovimientos,
     setArgMovimientos,
@@ -22,7 +24,7 @@ const ListaOCView = ({ navigation, route }: Props) => {
     showBusqueda,
     setShowBusqueda,
     movimientos,
-  } = BusquedaViewModel(route.params.almacen.almacenID, route.params.tipo);
+  } = BusquedaViewModel(selectAlmacenAndType?.almacen.almacenID, selectAlmacenAndType?.tipo);
   //Estados para questions, en caso de error
   const { removeMovimiento, msgError, setErrorShow, errorShow } = ViewCOntrolOC();
   //para mostrar task, de eliminacion
@@ -35,7 +37,7 @@ const ListaOCView = ({ navigation, route }: Props) => {
 
   const RemoverMovimiento = async () => {
     try {
-      await removeMovimiento(selectMovimiento, route.params.tipo);
+      await removeMovimiento(selectMovimiento, selectAlmacenAndType?.tipo);
       setSelectMovimiento(null);
       setMostrarTask(false);
     } catch (error) {
@@ -56,8 +58,8 @@ const ListaOCView = ({ navigation, route }: Props) => {
       <ModalCondicion setMostrarTask={setMostrarTask} mostrarTask={mostrarTask} task="¿Eliminar Movimiento?" action={RemoverMovimiento} />
       <ModalErrorMsg setMostrarTask={setErrorShow} mostrarTask={errorShow} task={msgError} />
       <CardBusquedaView
-        tipoMovimiento={route.params.tipo}
-        txtAlmacen={route.params.almacen.descripcion}
+        tipoMovimiento={selectAlmacenAndType?.tipo}
+        txtAlmacen={selectAlmacenAndType?.almacen.descripcion}
         setArgBusqueda={setArgMovimientos}
         argBusqueda={argMovimientos}
         getMovimientos={getMovimientos}
@@ -220,4 +222,4 @@ const Subtotal = (cantidad: number | undefined, precio: number | null,): string 
   return FormaNumber(total);
 };
 
-export default ListaOCView;
+export default ListaOCViewPP;

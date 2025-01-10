@@ -32,7 +32,6 @@ export const userAuthViewmodel = () => {
    * @returns manejo de estados
    */
   const loginUser = async (date: string | Date) => {
-    console.log("Peticiones de login");
     setLoading(true);
     setError("");
     try {
@@ -42,6 +41,7 @@ export const userAuthViewmodel = () => {
       setRefreshToken(tokens.token);
       const decode = decodeJwt(tokens.token);
       setDecodeJWT(decode);
+
       setTokenLogin(result);
       if(!decode.puedeUsarTablet){
         throw new Error("No tiene permisos para usar la tablet");

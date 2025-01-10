@@ -7,8 +7,8 @@ import ManagerError from "@/utils/ManagerError";
 class ListaController {
   private header: Headers;
 
-  private tipo: "E"|"S";
-  constructor(header:Headers, tipo:"E"|"S") {
+  private tipo: "E"|"S"|undefined;
+  constructor(header:Headers, tipo:"E"|"S"|undefined) {
     this.header = header;
        this.tipo = tipo;
   }
