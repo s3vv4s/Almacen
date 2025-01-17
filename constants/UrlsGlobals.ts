@@ -5,7 +5,8 @@ export enum AlmacenesList{
 }
 
 export enum MovimientosAlmacen{
-  movimientos = root+ "Movimientos/?"
+  movimientos = root+ "Movimientos/?",
+   ObtenerRegistro = root +"OrdenesCompra/obtenerRegistro?",
 }
 
 export enum EntradasAlmacen{

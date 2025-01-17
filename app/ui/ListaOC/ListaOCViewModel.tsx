@@ -26,6 +26,7 @@ const ViewCOntrolOC = () => {
             token: undefined, usuario: undefined, ubicacion: undefined,
             error: error as ManagerError
           });
+          //El return es en caso que el error sea de acceso y este no se muestre el otro modal de error al realizar alguna acción
           return;
       }
       setMsgError((error as ManagerError).message);

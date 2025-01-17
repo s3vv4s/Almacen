@@ -13,7 +13,6 @@ const InputPrimary = ({onChangeText,value,estilos, placeholder}: InputProps) => 
   const [isFocus,setIsFocus] = useState<boolean>(false);
 
   return (
-
     <TextInput
     value={value}
     onFocus={()=>setIsFocus(true)}

@@ -22,6 +22,7 @@ class ListaController {
       });
       const text = await res.text();
       if(res.status == 401){
+        console.log("Error 401 de las lista de Compra");
         throw new ManagerError(text,401);
       }
       if(res.status != 204){

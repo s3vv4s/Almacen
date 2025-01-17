@@ -1,6 +1,5 @@
 import React, { useEffect, ReactNode, useState } from "react";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { StackActions } from "@react-navigation/native";
+import { useNavigation, NavigationProp, StackActions} from "@react-navigation/native";
 import { useContextState } from "./Context";
 import ModalError from "../ui/components/ModalError";
  // Asegúrate de ajustar la ruta según tu estructura

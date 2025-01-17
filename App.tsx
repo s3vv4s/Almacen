@@ -12,7 +12,9 @@ import MenuES from "./app/ui/MenusEntradasSalidas/MenuES";
 import ListaView from "./app/ui/ListaAlmacenes/ListaView";
 import ListaOCView from "./app/ui/ListaOC/ListaOCView";
 import MainOC from "./app/ui/ListaOC/MainOC";
-import ContextAlmacenType from "./app/global/ContextAlmacenType";
+
+import EntradasView from "./app/ui/Entradas/EntradasView";
+import EntradaMain from "./app/ui/Entradas/EntradaMain";
 
 
 const Stack = createNativeStackNavigator<RootScreens>();
@@ -26,7 +28,7 @@ export default function App() {
   return (
     <ContextProvider>
       <ContextPermisos>
-        <ContextAlmacenType>
+
           <NavigationContainer>
             <AuthHandler>
               <Stack.Navigator initialRouteName="Login" >
@@ -50,14 +52,19 @@ export default function App() {
                   options={{ title: "Control de Movimientos" }}
                 />
                 <Stack.Screen
-                  name="TabsPrueba"
+                  name="EntradaMain"
                   component={MainOC}
                   options={{ title: "Control de Movimientos" }}
+                />
+                <Stack.Screen
+                  name="Entradas"
+                  component={EntradaMain}
+                  options={{ title: "Entradas" }}
                 />
               </Stack.Navigator>
             </AuthHandler>
           </NavigationContainer>
-        </ContextAlmacenType>
+
       </ContextPermisos>
     </ContextProvider>
   );

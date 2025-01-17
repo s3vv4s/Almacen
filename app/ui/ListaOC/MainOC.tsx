@@ -4,21 +4,23 @@ import { Text } from "react-native";
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import RootScreens, { ListaOcArgs } from "@/constants/RootScreens";
+import RootScreens, { AlmacenType } from "@/constants/RootScreens";
 import { Colors } from "@/constants/Colors";
+import ListaOCViewPP from "../ListaOC/ListaOCViewPP";
+
 type Root = {
-  Prueba: ListaOcArgs,
-  Texto:undefined
+  Prueba: AlmacenType,
+  Texto: undefined
 }
-export type PropsNavegacionLista = NativeStackScreenProps<RootScreens, "TabsPrueba">;
+export type PropsNavegacionLista = NativeStackScreenProps<RootScreens, "EntradaMain">;
 
 const Tabs = createBottomTabNavigator<Root>();
-const MainOC = (Props: PropsNavegacionLista) => {
+const MainOC = ({ navigation, route }: PropsNavegacionLista) => {
   return (
     <Tabs.Navigator>
       <Tabs.Screen
         name="Prueba"
-        component={ListaViewPP}
+
         options={{
           title: "Lista de Movimientos", headerShown: false,
           tabBarActiveTintColor: Colors.main.primary,
@@ -29,14 +31,14 @@ const MainOC = (Props: PropsNavegacionLista) => {
             }
             return <MaterialCommunityIcons name="home-city-outline" size={24} color={Colors.main.secondary} />
           },
-        }}
-      />
-
-
+        }}>
+        {() => <ListaOCViewPP almacen={route.params.almacen} tipo={route.params.tipo} />}
+      </Tabs.Screen>
       <Tabs.Screen
         name="Texto"
 
-        options={{ title: "Añadir Orden de Compra",headerShown: false,
+        options={{
+          title: "Añadir Orden de Compra", headerShown: false,
           tabBarActiveTintColor: Colors.main.primary,
           tabBarInactiveTintColor: Colors.main.card,
           tabBarIcon: ({ focused, color, size }) => {
@@ -45,11 +47,10 @@ const MainOC = (Props: PropsNavegacionLista) => {
             }
             return <MaterialCommunityIcons name="playlist-plus" size={24} color={Colors.main.secondary} />
           },
-     }}
+        }}
       >
         {() => <Text>Texto</Text>}
       </Tabs.Screen>
-
 
 
     </Tabs.Navigator>

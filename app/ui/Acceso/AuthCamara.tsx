@@ -57,7 +57,7 @@ const AuthCamara = ({ showChange, visible, next, userName }: Props) => {
             borderRadius: 10, padding: 10
           }]}>
 
-            <ButtonPrimary onClick={async () => {
+            <ButtonPrimary  onClick={async () => {
               try {
                 setCarga(true);
                 setMsg("Verificando");
@@ -86,8 +86,6 @@ const AuthCamara = ({ showChange, visible, next, userName }: Props) => {
               text="Verificar"
               activo={!carga}
               estilos={{ borderRadius: 10, alignSelf: "center",backgroundColor: !carga ?Colors.main.primary:Colors.main.tabIconDefault}} />
-
-
             <ButtonPrimary onClick={() => {
               Verificacion.abortVerificacion();
               setCarga(false);

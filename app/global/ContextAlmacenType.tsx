@@ -1,16 +1,16 @@
-import { ListaOcArgs } from "@/constants/RootScreens";
+import { AlmacenType } from "@/constants/RootScreens";
 import { createContext, useContext, useState } from "react";
 
 interface ContextSelectAlmacenAndType {
-  selectAlmacenAndType: ListaOcArgs|undefined;
-  setSelectAlmacenAndType: React.Dispatch<React.SetStateAction<ListaOcArgs|undefined>>;
+  selectAlmacenAndType: AlmacenType|undefined;
+  setSelectAlmacenAndType: React.Dispatch<React.SetStateAction<AlmacenType|undefined>>;
 }
 
 const contexSelect = createContext<ContextSelectAlmacenAndType|undefined>(undefined);
 
 
 function ContextAlmacenAndType({children}: {children: React.ReactNode}) {
-  const [selectAlmacenAndType,setSelectAlmacenAndType] = useState<ListaOcArgs|undefined>(undefined);
+  const [selectAlmacenAndType,setSelectAlmacenAndType] = useState<AlmacenType|undefined>(undefined);
   return (
     <contexSelect.Provider value={{selectAlmacenAndType,setSelectAlmacenAndType}}>
       {children}
@@ -18,7 +18,7 @@ function ContextAlmacenAndType({children}: {children: React.ReactNode}) {
   );
 }
 
-export function useContextSelectAlmacenAndType(): ContextSelectAlmacenAndType {
+ function useContextSelectAlmacenAndType(): ContextSelectAlmacenAndType {
 
   const context = useContext(contexSelect);
 
@@ -27,5 +27,3 @@ export function useContextSelectAlmacenAndType(): ContextSelectAlmacenAndType {
   }
   return context;
 }
-
-export default ContextAlmacenAndType;

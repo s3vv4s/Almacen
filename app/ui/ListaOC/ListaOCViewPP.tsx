@@ -1,23 +1,21 @@
-import { View, Text, FlatList, Pressable, ScrollView,KeyboardAvoidingView, Platform, } from "react-native";
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import RootScreens, { ListaOcArgs } from "@/constants/RootScreens";
+import { View, Text, FlatList, Pressable, SafeAreaView, } from "react-native";
+import { AlmacenType } from "@/constants/RootScreens";
 import CardBusquedaView from "../components/CardBusqueda/CardBusquedaView";
 import BusquedaViewModel from "../components/CardBusqueda/BusquedaViewModel";
 import React, { useEffect, useState } from "react";
-
 import { Colors } from "@/constants/Colors";
-
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import ViewCOntrolOC from "./ListaOCViewModel";
 import { Movimiento } from "./ListaOCModels";
 import ModalCondicion, { ModalErrorMsg } from "../components/ModalCondicion";
 import { useContextPermisos } from "@/app/global/ContextPermisos";
-import { useContextSelectAlmacenAndType } from "@/app/global/ContextAlmacenType";
 
+import { NavigationProp, StackActions, useNavigation } from "@react-navigation/native";
 
-type Props = NativeStackScreenProps<RootScreens, "OrdenesCompra">;
-const ListaOCViewPP = () => {
-  const { selectAlmacenAndType, setSelectAlmacenAndType } = useContextSelectAlmacenAndType();
+const ListaOCViewPP = ({almacen,tipo}:AlmacenType) => {
+  //navegacion con un hook
+  const navigation = useNavigation<NavigationProp<Screen>>();
+
   const {
     argMovimientos,
     setArgMovimientos,
@@ -25,7 +23,7 @@ const ListaOCViewPP = () => {
     showBusqueda,
     setShowBusqueda,
     movimientos,
-  } = BusquedaViewModel(selectAlmacenAndType?.almacen.almacenID, selectAlmacenAndType?.tipo);
+  } = BusquedaViewModel(almacen.almacenID, tipo);
   //Estados para questions, en caso de error
   const { removeMovimiento, msgError, setErrorShow, errorShow } = ViewCOntrolOC();
   //para mostrar task, de eliminacion
@@ -35,10 +33,12 @@ const ListaOCViewPP = () => {
   useEffect(() => {
 
   }, []);
-
+  const ToEntradaSalida = (item:Movimiento) => {
+    navigation.dispatch(StackActions.push("Entradas",{movimiento:item}));
+  };
   const RemoverMovimiento = async () => {
     try {
-      await removeMovimiento(selectMovimiento, selectAlmacenAndType?.tipo);
+      await removeMovimiento(selectMovimiento, tipo);
       setSelectMovimiento(null);
       setMostrarTask(false);
     } catch (error) {
@@ -55,60 +55,85 @@ const ListaOCViewPP = () => {
   };
   return (
 
-      <View style={{ flex: 1,  }}>
-        <CardBusquedaView
-          tipoMovimiento={selectAlmacenAndType?.tipo}
-          txtAlmacen={selectAlmacenAndType?.almacen.descripcion}
-          setArgBusqueda={setArgMovimientos}
-          argBusqueda={argMovimientos}
-          getMovimientos={getMovimientos}
-          setShowBusqueda={setShowBusqueda}
-          showBusqueda={showBusqueda}
-        />
-        <View style={{ flex: 1, height: "auto" }}>
-          <FlatList
-            numColumns={3}
-            data={movimientos?.lista}
-            keyExtractor={(item, index) => index.toString()}
-            style={{
-              flex: 1,
-            }}
-            renderItem={({ item }) => (
-              <CardOrdenCompra item={item}
-                setMovimiento={ShowMovimiento}
-                removeMovimiento={RemoverMovimiento} />
-            )}
-          />
-        </View>
-        <ModalCondicion setMostrarTask={setMostrarTask} mostrarTask={mostrarTask} task="¿Eliminar Movimiento?" action={RemoverMovimiento} />
-        <ModalErrorMsg setMostrarTask={setErrorShow} mostrarTask={errorShow} task={msgError} />
+    <SafeAreaView style={{ flex: 1 }} >
+      <CardBusquedaView
+        tipoMovimiento={tipo}
+        txtAlmacen={almacen.descripcion}
+        setArgBusqueda={setArgMovimientos}
+        argBusqueda={argMovimientos}
+        getMovimientos={getMovimientos}
+        setShowBusqueda={setShowBusqueda}
+        showBusqueda={showBusqueda}
+      />
+      <View style={{ flex: 5, alignContent: "center", alignItems: "center" }}>
 
+        <FlatList
+          nestedScrollEnabled={true}
+          numColumns={3}
+          data={movimientos?.lista}
+          keyExtractor={(item, index) => index.toString()}
+          style={{
+            flex: 1,
+            position: "sticky",
+
+
+          }}
+          ListHeaderComponent={
+            <View style={{
+              flex: 1,
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+
+
+            }}>
+
+              <Text style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: Colors.main.primary,
+                margin: 10,
+              }}>Lista de Movimientos</Text>
+            </View>
+          }
+          renderItem={({ item }) => (
+            <CardOrdenCompra item={item}
+              setMovimientoRemove={ShowMovimiento}
+              navegacion={ToEntradaSalida}
+            />
+          )}
+        />
       </View>
+      <ModalCondicion setMostrarTask={setMostrarTask} mostrarTask={mostrarTask} task="¿Eliminar Movimiento?" action={RemoverMovimiento} />
+      <ModalErrorMsg setMostrarTask={setErrorShow} mostrarTask={errorShow} task={msgError} />
+
+    </SafeAreaView>
 
   );
 };
 type Item = {
   item: Movimiento;
-  removeMovimiento: (selectedMovimiento: Movimiento) => Promise<void>;
-  setMovimiento: (item: Movimiento) => void;
+  navegacion: (item:Movimiento) => void;
+  setMovimientoRemove: (item: Movimiento | null) => void;
 };
-const CardOrdenCompra = ({ item, removeMovimiento, setMovimiento }: Item) => {
+const CardOrdenCompra = ({ item, setMovimientoRemove, navegacion }: Item) => {
   const { statePermisos, setStatePermisos } = useContextPermisos();
   return (
     <Pressable
       onPress={() => {
         console.log("se presiono");
+        navegacion(item);
       }}
       style={{
-        flex: 1,
         borderColor: Colors.main.primary,
         borderWidth: 1,
         margin: 10,
-        padding: 4,
+        padding: 10,
         borderRadius: 10,
         flexDirection: "column",
         gap: 4,
-        maxWidth: "30%"
+        maxWidth: "100%",
+        alignSelf: "center",
       }}>
 
       <Row direction="row">
@@ -173,7 +198,7 @@ const CardOrdenCompra = ({ item, removeMovimiento, setMovimiento }: Item) => {
           <View style={{ flex: 1 }}>
             <Pressable
               onPress={() => {
-                setMovimiento(item);
+                setMovimientoRemove(item);
               }}
               style={{
                 height: 40,

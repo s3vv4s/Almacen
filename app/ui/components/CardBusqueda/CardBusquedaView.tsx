@@ -24,37 +24,32 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
   //const { isExpanded, width, setIsExpanded, setMaxP, setMinP } = MvvMAcordeon();
   const [sizeView, setSizeView] = useState<boolean>(false);
   useEffect(() => {
-
   }, [setArgBusqueda]);
 
   return (
-
-    <ScrollView style={[{
-
-      flex: showBusqueda ? 1 : 0.12, justifyContent: "space-around", alignSelf: "stretch", flexDirection: "column",
-      borderRadius: 10,
+    <View style={{
       backgroundColor: Colors.main.card,
-      margin: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3,
-      elevation: 5,
-    }]}
-      >
+      height: showBusqueda ? "40%" : "10%",
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignContent: "flex-start",
+      borderWidth: 1,
+      borderBottomColor: Colors.main.primary,
+      padding: 10,
+    }}>
 
       <View style={{
-        alignSelf: "stretch",
+        alignSelf: "flex-start",
         flexDirection: "row",
-        justifyContent: "space-around",
-        alignContent: "center"
-      }}>
+        justifyContent: "space-evenly",
+        alignContent: "center",
+        flex: 1,
 
+      }}>
         <Text style={{ fontSize: 20, marginLeft: 4 }}>
-          {tipoMovimiento == "E" ? "Entradas" : "Salidas"} de Almacen - {txtAlmacen} <MaterialCommunityIcons name="home-city-outline" size={24} color={Colors.main.primary} /></Text>
+          {tipoMovimiento == "E" ? "Entradas" : "Salidas"} de Almacen - {txtAlmacen}
+          <MaterialCommunityIcons name="home-city-outline" size={24} color={Colors.main.primary} />
+        </Text>
         <View style={{
           flex: 1,
           justifyContent: "flex-end",
@@ -65,15 +60,23 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
         }}>
           <Text style={{
             fontSize: 16,
-            padding: 6, fontWeight: "bold", color: Colors.main.primary,
+            padding: 6,
+            fontWeight: "bold",
+            color: Colors.main.primary,
           }}>
             Busqueda De Movimientos
           </Text>
+          <Pressable
+            style={{
 
-          <Pressable onPress={() => {
-            setShowBusqueda(!showBusqueda);
-            setSizeView(!sizeView);
-          }}>
+              marginRight: 10,
+              justifyContent: "center",
+            }}
+
+            onPress={() => {
+              setShowBusqueda(!showBusqueda);
+              setSizeView(!sizeView);
+            }}>
             {!showBusqueda ? (
               <Icon name={EnumIcons.ArrowBarDown} size={30} color={Colors.main.primary} />
             ) : (
@@ -84,21 +87,20 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
       </View>
 
       {showBusqueda &&
-        <View style={{ flex: 1, flexDirection: "column" }}>
+        <View style={{
+          flex: 6,
+          flexDirection: "column", backgroundColor: "transparent", justifyContent: "space-between"
+        }}>
           <View style={{
-            flex: 1,
             alignSelf: "stretch",
             justifyContent: "space-around",
             alignContent: "center",
             flexDirection: "row",
           }}>
-            {/*id de Movimiento*/}
             <View style={{
-              flex: 1,
+              flexGrow: 1,
               margin: 10,
-
             }}>
-
               <TextInput
                 keyboardType="numeric"
                 style={styles.input}
@@ -107,10 +109,9 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
                 value={argBusqueda?.MovimientoID?.toString() === "-1" ? "" : argBusqueda?.MovimientoID?.toString()}
                 onChangeText={(val) => {
                   setArgBusqueda({ ...argBusqueda, MovimientoID: val });
-                }} />
-
+                }}
+              />
             </View>
-            {/*Estatus*/}
             <DropdownComponent argBusqueda={argBusqueda} setArgBusqueda={setArgBusqueda} />
             <Pressable onPress={() => getMovimientos()}
               style={{
@@ -126,33 +127,29 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
             </Pressable>
           </View>
           <View style={{
-            flex: 1,
+            flexGrow: 1,
             justifyContent: "space-around",
             alignContent: "center",
             flexDirection: "row",
-
           }}>
             <View style={{
-              flex: 1,
+              flexGrow: 1,
               margin: 10
             }}>
-
-
               <TextInput
                 style={styles.input}
                 placeholder="Observaciones"
                 value={argBusqueda?.observaciones}
                 onChangeText={(val) => {
                   setArgBusqueda({ ...argBusqueda, observaciones: val });
-                }} />
-
+                }}
+              />
             </View>
             <View style={{
-              flex: 1,
+              flexGrow: 1,
               margin: 10,
             }}>
               <TextInput
-
                 style={styles.input}
                 onFocus={() => {
                   setSizeView(true);
@@ -161,14 +158,13 @@ const CardBusquedaView = ({ argBusqueda, getMovimientos, setArgBusqueda, setShow
                 value={argBusqueda?.cve_ordenCompra}
                 onChangeText={(val) => {
                   setArgBusqueda({ ...argBusqueda, cve_ordenCompra: val });
-                }} />
+                }}
+              />
             </View>
           </View>
         </View>
-
       }
-
-    </ScrollView>
+    </View>
 
   );
 };
