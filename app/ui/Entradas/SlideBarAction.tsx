@@ -1,7 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import RootScreens, { ParamEntraSalidaMovimiento } from "@/constants/RootScreens";
 import { View, Text, Pressable } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useState } from "react";
 import Entypo from '@expo/vector-icons/Entypo';

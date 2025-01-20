@@ -34,7 +34,7 @@ const ListaOCViewPP = ({almacen,tipo}:AlmacenType) => {
 
   }, []);
   const ToEntradaSalida = (item:Movimiento) => {
-    navigation.dispatch(StackActions.push("Entradas",{movimiento:item}));
+    navigation.dispatch(StackActions.push("ControlMain",{movimiento:item}));
   };
   const RemoverMovimiento = async () => {
     try {
@@ -75,8 +75,6 @@ const ListaOCViewPP = ({almacen,tipo}:AlmacenType) => {
           style={{
             flex: 1,
             position: "sticky",
-
-
           }}
           ListHeaderComponent={
             <View style={{

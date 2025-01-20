@@ -9,11 +9,9 @@ import AuthHandler from "./app/global/AuthHandler";
 import Login from "./app/ui/Acceso/Login";
 import ContextPermisos from "./app/global/ContextPermisos";
 import MenuES from "./app/ui/MenusEntradasSalidas/MenuES";
-import ListaView from "./app/ui/ListaAlmacenes/ListaView";
-import ListaOCView from "./app/ui/ListaOC/ListaOCView";
-import MainOC from "./app/ui/ListaOC/MainOC";
 
-import EntradasView from "./app/ui/Entradas/EntradasView";
+import ListaAlmacenView from "./app/ui/ListaAlmacenes/ListaAlmacenView";
+import ListaOCView from "./app/ui/ListaOC/ListaOCView";
 import EntradaMain from "./app/ui/Entradas/EntradaMain";
 
 
@@ -28,7 +26,6 @@ export default function App() {
   return (
     <ContextProvider>
       <ContextPermisos>
-
           <NavigationContainer>
             <AuthHandler>
               <Stack.Navigator initialRouteName="Login" >
@@ -43,7 +40,7 @@ export default function App() {
                 />
                 <Stack.Screen
                   name="ListaAlmacenes"
-                  component={ListaView}
+                  component={ListaAlmacenView}
                   options={{ title: "Lista de Almacenes" }}
                 />
                 <Stack.Screen
@@ -52,15 +49,11 @@ export default function App() {
                   options={{ title: "Control de Movimientos" }}
                 />
                 <Stack.Screen
-                  name="EntradaMain"
-                  component={MainOC}
+                  name="ControlMain"
+                  component={EntradaMain}
                   options={{ title: "Control de Movimientos" }}
                 />
-                <Stack.Screen
-                  name="Entradas"
-                  component={EntradaMain}
-                  options={{ title: "Entradas" }}
-                />
+
               </Stack.Navigator>
             </AuthHandler>
           </NavigationContainer>
@@ -69,3 +62,14 @@ export default function App() {
     </ContextProvider>
   );
 };
+      {/*
+                <Stack.Screen
+                  name="Entrada"
+                  component={MainOC}
+                  options={{ title: "Control de Movimientos" }}
+                />
+                <Stack.Screen
+                  name="Entradasm"
+                  component={EntradaMain}
+                  options={{ title: "Entradas" }}
+                />*/}

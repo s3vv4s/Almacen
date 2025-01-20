@@ -11,7 +11,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { MainEntrada } from "@/models/MainEntrada";
 import { HeaderApiOC } from "@/models/HeaderEntradaSalida";
 
-type Props = NativeStackScreenProps<RootScreens, "Entradas">;
+type Props = NativeStackScreenProps<RootScreens, "ControlMain">;
 
 type TabsEntrada = {
   Entrada: Movimiento,
@@ -42,8 +42,6 @@ const EntradaMain = ({ navigation, route }: Props) => {
           tabBarActiveTintColor: Colors.main.primary,
           tabBarInactiveTintColor: Colors.main.secondary,
           tabBarIcon: ({ focused, color, size }) => {
-
-
             return <MaterialCommunityIcons name="home-city-outline" size={24} color={focused ? Colors.main.primary : Colors.main.secondary} />
           }
         }} >
@@ -57,7 +55,6 @@ const EntradaMain = ({ navigation, route }: Props) => {
           tabBarActiveTintColor: Colors.main.primary,
           tabBarInactiveTintColor: Colors.main.secondary,
           tabBarIcon: ({ focused, color, size }) => {
-
             return <MaterialCommunityIcons name="home-city-outline" size={24} color={focused ? Colors.main.primary : Colors.main.secondary} />
           }
         }} >

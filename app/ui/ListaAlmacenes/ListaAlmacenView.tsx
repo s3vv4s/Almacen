@@ -10,7 +10,7 @@ import { NavigationProp, StackActions, useNavigation } from "@react-navigation/n
 
 type Props = NativeStackScreenProps<RootScreens, "ListaAlmacenes">;
 
-const ListaView = ({ navigation, route }: Props) => {
+const ListaAlmacenView = ({ navigation, route }: Props) => {
 
   //const navigation = useNavigation<NavigationProp<Screen>>();
   const { listaAlmacenes, setListaAlmacenes, getListaAlmacenes } = ListaViewModel();
@@ -33,7 +33,7 @@ const ListaView = ({ navigation, route }: Props) => {
           //Deberia ir el control del context
             onPress={() => {
 
-              navigation.navigate("EntradaMain",{almacen:item,tipo:route.params.tipo,});
+              navigation.navigate("ListaOc",{almacen:item,tipo:route.params.tipo,});
             }}
             style={{
               flex: 1,
@@ -53,4 +53,4 @@ const ListaView = ({ navigation, route }: Props) => {
   );
 };
 
-export default ListaView;
+export default ListaAlmacenView;

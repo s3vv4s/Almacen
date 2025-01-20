@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { decodeJwt, LoginToken, RefreshToken } from "./AuthModel";
 import { useContextState } from "@/app/global/Context";
-import { useNavigation } from "@react-navigation/native";
-import { NavigationProp, StackActions } from "@react-navigation/native";
+import { NavigationProp, StackActions, useNavigation } from "@react-navigation/native";
 import { DecodeJWT } from "@/models/TypesSeguridad";
 import { useContextPermisos } from "@/app/global/ContextPermisos";
 
