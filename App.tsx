@@ -48,6 +48,7 @@ export default function App() {
                   component={ListaOCView}
                   options={{ title: "Control de Movimientos" }}
                 />
+                {/*En esta parte Podria cambiar ya que depende del tipo si es entrada o salida  */}
                 <Stack.Screen
                   name="ControlMain"
                   component={EntradaMain}

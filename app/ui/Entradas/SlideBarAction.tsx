@@ -16,11 +16,11 @@ const SlidebarAction = () => {
       <View
         style={{
           width:"10%",
-          height: "80%",
+          height: "90%",
           position: "absolute",
           right: 0,
           top: "50%",
-          transform: [{ translateY: "-50%" }],
+          transform: [{ translateY: "-53%" }],
           backgroundColor: Colors.main.card,
           borderWidth: 2,
           borderColor: Colors.main.primary,

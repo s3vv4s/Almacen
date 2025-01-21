@@ -20,6 +20,7 @@ export type AlmacenType = {
 
 export type ParamEntraSalidaMovimiento = {
   movimiento: Movimiento,
+  almacen:Almacen,
 }
 
 export default RootScreens;

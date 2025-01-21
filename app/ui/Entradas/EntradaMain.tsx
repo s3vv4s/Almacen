@@ -45,7 +45,7 @@ const EntradaMain = ({ navigation, route }: Props) => {
             return <MaterialCommunityIcons name="home-city-outline" size={24} color={focused ? Colors.main.primary : Colors.main.secondary} />
           }
         }} >
-        {() => <EntradasView movimiento={route.params.movimiento}  naviga={navigation} />}
+        {() => <EntradasView movimiento={route.params.movimiento}  naviga={navigation} almacen={route.params.almacen} />}
       </Tabs.Screen>
        <Tabs.Screen
         name="ListaProductos"

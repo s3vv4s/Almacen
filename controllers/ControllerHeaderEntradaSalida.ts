@@ -51,6 +51,7 @@ class ControllerHeaderEntradaSalida<T> {
           throw new ManagerError(text,response.status);
         }
         const decode = ( await JSON.parse(text)) as T;
+
         return decode;
 
     } catch (error) {

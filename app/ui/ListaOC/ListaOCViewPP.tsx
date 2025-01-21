@@ -34,7 +34,7 @@ const ListaOCViewPP = ({almacen,tipo}:AlmacenType) => {
 
   }, []);
   const ToEntradaSalida = (item:Movimiento) => {
-    navigation.dispatch(StackActions.push("ControlMain",{movimiento:item}));
+    navigation.dispatch(StackActions.push("ControlMain",{movimiento:item,almacen:almacen}));
   };
   const RemoverMovimiento = async () => {
     try {
