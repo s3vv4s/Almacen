@@ -17,10 +17,10 @@ const CardMovimiento = ({ almacenId, movimientoId, almacen }: { almacenId: numbe
     //De estas partes, aqui podra ser una condición en caso de que sea nuevo
     (async () => {
       await obtenerMain(setMain);
-
       await obtenerRegistro(setHeader);
     })();
-  }, [setHeader, setMain]);
+  }, [setHeader, setMain, movimientoId]);
+
   return (
     <View style={{
       backgroundColor: Colors.main.card,
@@ -47,7 +47,6 @@ const CardMovimiento = ({ almacenId, movimientoId, almacen }: { almacenId: numbe
         <Text style={{ fontSize: 24, color:Colors.main.text, padding:10}}>{almacen.almacenID} - {almacen.descripcion} </Text>
         <MaterialCommunityIcons name="home-city-outline" size={24} color={Colors.main.text} />
       </View>
-
 
       <View style={{
         flex: 3, backgroundColor: "transparent", padding: 10,

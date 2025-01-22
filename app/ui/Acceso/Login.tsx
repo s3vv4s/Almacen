@@ -36,7 +36,7 @@ const Login = ({navigation,route}: Props) => {
 
  return (
     <View style={styles.container}>
-      <BlurView intensity={.4}  style={styles.containerImg}>
+      <BlurView intensity={90}  style={styles.containerImg} tint="dark" >
       <Image source={require("@/assets/images/dif_logo.png")} style={{
           position: "absolute",
           width: 300, height: 300,

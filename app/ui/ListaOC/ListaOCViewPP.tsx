@@ -115,7 +115,7 @@ type Item = {
   setMovimientoRemove: (item: Movimiento | null) => void;
 };
 const CardOrdenCompra = ({ item, setMovimientoRemove, navegacion }: Item) => {
-  const { statePermisos, setStatePermisos } = useContextPermisos();
+  const { statePermisos } = useContextPermisos();
   return (
     <Pressable
       onPress={() => {
@@ -213,9 +213,7 @@ const CardOrdenCompra = ({ item, setMovimientoRemove, navegacion }: Item) => {
             </Pressable>
           </View>
         }
-
       </Row>
-
     </Pressable>
   );
 };
